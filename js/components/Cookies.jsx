@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {Task} from './Task.jsx'
+
+import {Category} from './Category.jsx';
 
 class Cookies extends React.Component {
     constructor(props) {
@@ -31,20 +32,30 @@ class Cookies extends React.Component {
             }
         }
     }
-    tabOfCookies() {
+    tabOfCategoryCookies() {
         let tab = [];
         if (document.cookie != "") {
             var cookies = document.cookie.split("; ");
             for (var i = 0; i < cookies.length; i++) {
-                if(cookies[i].substring(0,4)=="task"){
+                if(cookies[i].substring(0,8)=="category"){
                     tab[i] = cookies[i];
                 }
                 }
             }
         return tab;
     }
+    tabOfTasksCookies() {
+        let tab = [];
+        if (document.cookie != "") {
+            var cookies = document.cookie.split("; ");
+            for (var i = 0; i < cookies.length; i++) {
+                    tab[i] = cookies[i];
+                }
+            }
+        return tab;
+    }
     render() {
-        return <Task setCookie={this.setCookie} showCookie={this.showCookie} tabOfCookies={this.tabOfCookies} deleteCookie={this.deleteCookie}></Task>;
+        return <Category setCookie={this.setCookie} showCookie={this.showCookie} tabOfCategoryCookies={this.tabOfCategoryCookies} tabOfTasksCookies={this.tabOfTasksCookies} deleteCookie={this.deleteCookie}></Category>;
     }
 }
 
