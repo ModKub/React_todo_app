@@ -15,21 +15,25 @@ class Task extends React.Component {
     }
     handleClick = (e) => {
         e.preventDefault();
-        if (this.state.text != "") {
-            this.setState({alert: ""});
+        if (this.state.text != "" && this.props.currentCategory !="") {
             let counter = parseInt(this.props.showCookie('counter'));
             counter++;
             this.props.setCookie('counter', counter, 365);
             let taskName = `${this.props.currentCategory}${counter}`;
             this.props.setCookie(taskName, this.state.text, 365);
             this.setState({text: ""});
-        } else {
+        }else if(this.props.currentCategory ==""){
+            this.setState({alert: "You must choose category"});
+            setTimeout(()=>{this.setState({alert: ""});},2000)
+        }else {
             this.setState({alert: "You can't add empty task"});
+            setTimeout(()=>{this.setState({alert: ""});},2000)
         }
     }
     handleClick1 = (e) => {
         this.props.deleteCookie(e);
         this.setState({alert: "deleted"});
+        setTimeout(()=>{this.setState({alert: ""});},2000)
     }
     render() {
         let tab = this.props.tabOfTasksCookies();
@@ -45,21 +49,15 @@ class Task extends React.Component {
             }
 
         })
-        if (this.props.showCookie('name') == undefined) {
-            let name = prompt("podaj imie");
-            this.props.setCookie('name', name, 365);
-            this.props.setCookie('counter', 0, 365);
-            this.props.setCookie('counter1', 0, 365);
-        }
         return (
-                <div className="right-side">
-                    <h2 className="header">Shopping</h2>
+                <div className="task">
+                    <h2 className="task-header">{this.props.currentCategory}</h2>
                     <form onSubmit={(e)=>{this.handleClick(e)}}>
-                        <input className="inputStyle" type='text' placeholder="Add task" value={this.state.text} onChange={this.handleChange} ></input>
+                        <input className="task-input" type='text' placeholder="Add task" value={this.state.text} onChange={this.handleChange} ></input>
                         <button className="btn btn4" onClick={(e)=>{this.handleClick(e)}}><i className="fa fa-plus-square-o" aria-hidden="true"></i></button><br></br><br></br>
                     </form>
-                    <ul className="listOfTasks">{lista}</ul>
-                    <p className="alert">{this.state.alert}<br></br> {this.props.alert}</p>
+                    <ul className="task-list">{lista}</ul>
+                    <p className="task-alert">{this.state.alert}</p>
                 </div>
         )
     }

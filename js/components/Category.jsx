@@ -16,15 +16,26 @@ class Category extends React.Component {
         this.setState({category: a});
     }
     handleClick1 = (e) => {
-        this.props.deleteCookie(e);
-        this.setState({alert: "deleted"});
-    }
+        let tabOfTasksCookies = this.props.tabOfTasksCookies();
+        let valCookie  = this.props.showCookie(e);
+        let newTab = tabOfTasksCookies.map(function(el, i) {
+            return el.substring(0, valCookie.length);
+        });
+        if(newTab.indexOf(valCookie)!==-1){
+            this.setState({alert: "Delete tasks first!"});
+            setTimeout(()=>{this.setState({alert: ""});},2000)
+        }else{
+            this.props.deleteCookie(e);
+            this.setState({alert: "deleted"});
+            setTimeout(()=>{this.setState({alert: ""});},2000)
+        }
+}
+
     handleClick2 = (e) =>{
         let tab = [];
         tab = this.state.listOfCategory;
         e.preventDefault();
         if (this.state.category != "") {
-            this.setState({alert: ""});
             let counter = parseInt(this.props.showCookie('counter1'));
             counter++;
             this.props.setCookie('counter1', counter, 365);
@@ -32,31 +43,41 @@ class Category extends React.Component {
             this.props.setCookie(categoryName, this.state.category, 365);
             this.setState({category: ""});
         } else {
-            this.setState({alert: "You can't add empty category"});
+
+            this.setState({alert: "Can't add empty category !!"});
+            setTimeout(()=>{this.setState({alert: ""});},2000)
         }
     }
     handleClick3 = (e) =>{
         this.setState({currentCategory: e})
     }
     render() {
+        if (this.props.showCookie('name') == undefined) {
+            let name = prompt("enter your name and surname");
+            this.props.setCookie('name', name, 365);
+            this.props.setCookie('counter', 0, 365);
+            this.props.setCookie('counter1', 0, 365);
+        }
         let tab = this.props.tabOfCategoryCookies();
         let listOfCategory = tab.map((e, i) => {
             let cookieName = e.split("=")[0];
             let cookieVal = e.split("=")[1];
-            return <li key={i} onClick={()=>{this.handleClick3(cookieVal)}}>{cookieVal}
-                <button  onClick={()=>{this.handleClick1(cookieName)}}  ><i className="fa fa-ban" aria-hidden="true"></i></button></li>
+            return <li key={i} onClick={()=>{this.handleClick3(cookieVal)}}><i className="fa fa-list category-list-icon" aria-hidden="true"></i> {cookieVal}
+                   <button className="category-delete-button"  onClick={()=>{this.handleClick1(cookieName)}}  > <i className="fa fa-minus-square-o" aria-hidden="true"></i></button></li>
             })
         return (
-            <div  className="container">
-            <div className="left-side">
-            <h2>Hello, {this.props.showCookie('name')}</h2>
-            <div>Category</div>
+            <div className="container">
             <div className="category">
+            <div><img className="category-avatar"  src="css/avatar.png"></img> <span className="category-name">{this.props.showCookie('name')}</span></div>
+                <br></br>
+            <div>Category</div>
+            <div className="category-list">
                 <ul>{listOfCategory}</ul>
-                <div className="addCategory">
+                <div className="category-add">
+                    <p className="category-alert">{this.state.alert}</p>
                     <form onSubmit={(e)=>{this.handleClick2(e)}}>
-                        <button onClick={(e)=>{this.handleClick2(e)}}><i className="fa fa-plus-square-o" aria-hidden="true"></i></button>
-                        <input className="inputStyle" type='text' placeholder="Add category"  value={this.state.category} onChange={this.handleChange1}></input>
+                        <button className="category-add-button" onClick={(e)=>{this.handleClick2(e)}}><i className="fa fa-plus-square-o" aria-hidden="true"></i></button>
+                        <input className="category-input" type='text' placeholder="Add category"  value={this.state.category} onChange={this.handleChange1}></input>
                     </form>
                 </div>
             </div>

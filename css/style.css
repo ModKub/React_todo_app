@@ -138,7 +138,7 @@ body {
 .listOfTasks li {
     font-family: 'Pangolin', cursive;
     border-bottom: 1px solid lightgrey;
-    margin-bottom: 10px;
+    margin-bottom: 24px;
     list-style: none;
 }
 

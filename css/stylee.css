@@ -1,0 +1,103 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    min-width: 100vw;
+    font-family: 'Montserrat', sans-serif;
+    background-color: #E8E6E7;
+    font-size: 14px;
+}
+
+.container {
+    padding: 30px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    background-color: white;
+    box-shadow: 0px 0px 30px 0px rgba(50, 50, 50, 0.75);
+    border-radius: 5px;
+    min-width: 50vw;
+    min-height: 50vh;
+}
+
+.category {
+    flex-grow: 1;
+}
+
+.category-avatar {
+    border-radius: 20%;
+    width: 30px;
+    height: auto;
+}
+
+.category-name {
+    margin-left: 10px;
+    display: inline-block;
+    vertical-align: 10px;
+}
+
+.category ul {
+    padding: 0;
+}
+
+.category li {
+    list-style: none;
+    /*margin-left: 10px;*/
+    padding: 8px;
+    cursor: pointer;
+}
+
+.category li:hover {
+    background-color: #F3F6FF;
+}
+
+.category-list-icon {
+    margin-right: 10px;
+}
+
+.category-delete-button {
+    background-color: rgba(0, 0, 0, 0);
+    border: 0;
+    float: right;
+    outline: none;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: lighter;
+}
+
+.category-delete-button:hover {
+    color: red;
+}
+
+.category-add-button {
+    background-color: rgba(0, 0, 0, 0);
+    border: 0;
+    float: left;
+    outline: none;
+    cursor: pointer;
+    font-size: 20px;
+    font-weight: lighter;
+}
+
+.category-add-button:hover {
+    color: green;
+}
+
+.category-alert {
+    color: red;
+}
+
+.category-input {
+    border: 0;
+    outline: none;
+    margin-left: 5px;
+}
+
+.task {
+    flex-grow: 10;
+}
