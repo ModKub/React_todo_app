@@ -44,6 +44,20 @@ class Cookies extends React.Component {
             }
         return tab;
     }
+    tabOfCategoryValCookies() {
+        let tab = [];
+        if (document.cookie != "") {
+            var cookies = document.cookie.split("; ");
+            for (var i = 0; i < cookies.length; i++) {
+                if(cookies[i].substring(0,8)=="category"){
+                    var cookieName = cookies[i].split("=")[0];
+                    var cookieVal = cookies[i].split("=")[1];
+                    tab[i] = decodeURI(cookieVal);
+                }
+                }
+            }
+        return tab;
+    }
     tabOfTasksCookies() {
         let tab = [];
         if (document.cookie != "") {
@@ -55,7 +69,7 @@ class Cookies extends React.Component {
         return tab;
     }
     render() {
-        return <Category setCookie={this.setCookie} showCookie={this.showCookie} tabOfCategoryCookies={this.tabOfCategoryCookies} tabOfTasksCookies={this.tabOfTasksCookies} deleteCookie={this.deleteCookie}></Category>;
+        return <Category setCookie={this.setCookie} showCookie={this.showCookie} tabOfCategoryValCookies={this.tabOfCategoryValCookies} tabOfCategoryCookies={this.tabOfCategoryCookies} tabOfTasksCookies={this.tabOfTasksCookies} deleteCookie={this.deleteCookie}></Category>;
     }
 }
 

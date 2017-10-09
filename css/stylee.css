@@ -6,27 +6,35 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 100vh;
-    min-width: 100vw;
+    /*min-height: 99vh;
+    min-width: 99vw;*/
     font-family: 'Montserrat', sans-serif;
     background-color: #E8E6E7;
     font-size: 14px;
 }
 
+.background {
+    background-color: white;
+    min-width: 46vw;
+    min-height: 51vh;
+    padding: 15px;
+}
+
 .container {
-    padding: 30px;
+    /*padding: 30px;*/
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     background-color: white;
-    box-shadow: 0px 0px 30px 0px rgba(50, 50, 50, 0.75);
+    box-shadow: 0px 0px 30px 0px rgba(50, 50, 50, 0.2);
     border-radius: 5px;
-    min-width: 50vw;
+    min-width: 45vw;
     min-height: 50vh;
 }
 
 .category {
-    flex-grow: 1;
+    flex-grow: 0;
+    margin: 20px;
 }
 
 .category-avatar {
@@ -41,6 +49,11 @@ body {
     vertical-align: 10px;
 }
 
+.category-list {
+    height: 400px;
+    overflow-y: scroll;
+}
+
 .category ul {
     padding: 0;
 }
@@ -53,7 +66,7 @@ body {
 }
 
 .category li:hover {
-    background-color: #F3F6FF;
+    background-color: #F1F1FF;
 }
 
 .category-list-icon {
@@ -99,5 +112,84 @@ body {
 }
 
 .task {
-    flex-grow: 10;
+    flex-grow: 1;
+}
+
+.task-header {
+    min-height: 200px;
+    background-image: url("./background4.jpg");
+    background-position: center;
+    background-size: 800px 200px;
+    border-radius: 0 5px 0 0;
+    position: relative;
+    margin-bottom: 5px;
+}
+
+.task-header-title {
+    color: white;
+    font-size: 20px;
+    letter-spacing: 2px;
+    position: absolute;
+    bottom: 10px;
+    left: 20px;
+}
+
+.task-header-date {
+    color: white;
+    position: absolute;
+    right: 20px;
+    top: 10px;
+}
+
+.task-list {
+    height: 300px;
+    overflow-y: scroll;
+}
+
+.task-list ul {
+    padding: 0;
+}
+
+.task-list li {
+    list-style: none;
+    margin: 10px;
+}
+
+.task-line {
+    color: lightgrey;
+}
+
+.task-btn {
+    background-color: rgba(0, 0, 0, 0);
+    border: 0;
+    outline: none;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: lighter;
+}
+
+.btn1 {
+    float: right;
+}
+
+.btn4 {
+    font-size: 20px;
+}
+
+.btn4:hover {
+    color: green;
+}
+
+.btn1:hover {
+    color: red;
+}
+
+.task-input {
+    border: 0;
+    outline: none;
+    margin-left: 5px;
+}
+
+.task-alert {
+    color: red;
 }
