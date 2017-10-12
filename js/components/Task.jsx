@@ -15,23 +15,33 @@ class Task extends React.Component {
     }
     handleClick = (e) => {
         e.preventDefault();
-        if (this.state.text != "" && this.props.currentCategory != "") {
+        if (this.props.currentCategory == "") {
+            this.setState({alert: "You must choose category"});
+            setTimeout(() => {
+                this.setState({alert: ""});
+            }, 2000)
+        }else if(this.state.text == ""){
+            this.setState({alert: "You can't add empty task"});
+            setTimeout(() => {
+                this.setState({alert: ""});
+            }, 2000)
+        }else if(this.state.text.length <= 3){
+            this.setState({alert: "More than 3 characters!"});
+            setTimeout(() => {
+                this.setState({alert: ""});
+            }, 2000)
+        }else if(this.state.text.length > 30){
+            this.setState({alert: "Less than 30 characters!"});
+            setTimeout(() => {
+                this.setState({alert: ""});
+            }, 2000)
+        }else{
             let counter = parseInt(this.props.showCookie('counter'));
             counter++;
             this.props.setCookie('counter', counter, 365);
             let taskName = `${this.props.currentCategory}${counter}`;
             this.props.setCookie(taskName, this.state.text, 365);
             this.setState({text: ""});
-        } else if (this.props.currentCategory == "") {
-            this.setState({alert: "You must choose category"});
-            setTimeout(() => {
-                this.setState({alert: ""});
-            }, 2000)
-        } else {
-            this.setState({alert: "You can't add empty task"});
-            setTimeout(() => {
-                this.setState({alert: ""});
-            }, 2000)
         }
     }
     handleClick1 = (e) => {

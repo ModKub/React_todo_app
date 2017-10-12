@@ -35,31 +35,41 @@ class Category extends React.Component {
             }, 2000)
         }
     }
-
+    isDifferent = (el) =>{
+        return (this.state.category == el.substring(0, this.state.category.length));
+    }
     handleClick2 = (e) => {
         e.preventDefault();
         let listOfCategory = this.props.tabOfCategoryValCookies();
         listOfCategory = listOfCategory.filter(function(n){ return n != undefined });
-        if (this.state.category != "" && this.state.category.length > 3) {
-            for (let i = 0; i < listOfCategory.length; i++) {
-                if (this.state.category == listOfCategory[i].substring(0, this.state.category.length)) {
-                    this.setState({alert: "Beginning of category name must be different from existing"});
-                    setTimeout(() => {
-                        this.setState({alert: ""});
-                    }, 2000)
-                }
-            }
+    
+        if(this.state.category == ""){
+            this.setState({alert: "Can't add empty category !!"});
+            setTimeout(() => {
+                this.setState({alert: ""});
+            }, 2000)
+        }else if(this.state.category.length <= 3){
+            this.setState({alert: "More than 3 characters !!"});
+            setTimeout(() => {
+                this.setState({alert: ""});
+            }, 2000)
+        }else if(this.state.category.length > 20){
+            this.setState({alert: "Less than 20 characters !!"});
+            setTimeout(() => {
+                this.setState({alert: ""});
+            }, 2000)
+        }else if(listOfCategory.some(this.isDifferent)){
+            this.setState({alert: "Must be different from existing"});
+            setTimeout(() => {
+                this.setState({alert: ""});
+            }, 2000)
+        }else{
             let counter = parseInt(this.props.showCookie('counter1'));
             counter++;
             this.props.setCookie('counter1', counter, 365);
             let categoryName = `category${counter}`;
             this.props.setCookie(categoryName, this.state.category, 365);
             this.setState({category: ""});
-        } else {
-            this.setState({alert: "Can't add empty category !!"});
-            setTimeout(() => {
-                this.setState({alert: ""});
-            }, 2000)
         }
     }
     handleClick3 = (e) => {
